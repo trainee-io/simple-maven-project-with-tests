@@ -6,10 +6,17 @@ pipeline {
   }
 
   stages {
-    stage('Build') {
+
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+
+    stage('Build & Test') {
       steps {
         sh 'mvn -v'
-        sh 'mvn -Dmaven.test.failure.ignore=false clean test'
+        sh 'mvn -Dmaven.test.failure.ignore=false clean package'
       }
     }
   }
